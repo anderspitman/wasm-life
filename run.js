@@ -18,8 +18,8 @@ async function run(wasm) {
   //universe[10] = 1;
   //universe[110] = 1;
 
-  const WIDTH = 10;
-  const HEIGHT = 10;
+  const WIDTH = 30;
+  const HEIGHT = 30;
 
   instance.exports.init(WIDTH, HEIGHT);
 
@@ -33,19 +33,18 @@ async function run(wasm) {
   setInterval(() => {
     render();
     instance.exports.tick();
-  }, 500);
+  }, 200);
   //console.log(universe);
 
   function render() {
     const frontBufferOffset = instance.exports.getFrontBufferOffset();
-    console.log("frontBufferOffset", frontBufferOffset);
 
     for (let i = 0; i < HEIGHT; i++) {
       let row = '';
       for (let j = 0; j < WIDTH; j++) {
         const cellIndex = frontBufferOffset + (i * WIDTH) + j;
         const cell = universe[cellIndex];
-        row += cell;
+        row += cell === 0 ? '.' : 'O';
       }
       console.log(row);
     }
